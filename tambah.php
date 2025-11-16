@@ -5,19 +5,35 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 
-$err = "";
+$errors = [];
+$nama = "";
+$email = "";
+$telepon = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $nama    = trim($_POST["nama"]);
     $email   = trim($_POST["email"]);
     $telepon = trim($_POST["telepon"]);
 
     if ($nama === "") {
-        $err = "Nama wajib diisi!";
-    } else {
+        $errors["nama"] = "Nama wajib diisi!";
+    }
+
+    if ($telepon === "") {
+        $errors["telepon"] = "Nomor telepon wajib diisi!";
+    } elseif (!preg_match('/^[0-9]+$/', $telepon)) {
+        $errors["telepon"] = "Nomor telepon harus berupa angka saja!";
+    }
+
+    if ($email !== "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors["email"] = "Format email tidak valid!";
+    }
+
+    if (empty($errors)) {
         $_SESSION["kontak"][] = [
-            "nama" => $nama,
-            "email" => $email,
+            "nama"    => $nama,
+            "email"   => $email,
             "telepon" => $telepon
         ];
 
@@ -33,24 +49,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="box">
     <h2>Tambah Kontak</h2>
 
-    <?php if($err): ?><p class="error"><?= $err ?></p><?php endif; ?>
-
     <form method="post">
+
         <label>Nama</label>
-        <input type="text" name="nama" required>
+        <input type="text" name="nama" value="<?= htmlspecialchars($nama) ?>">
+        <?php if(isset($errors["nama"])): ?>
+            <p class="error"><?= $errors["nama"] ?></p>
+        <?php endif; ?>
 
         <label>Email</label>
-        <input type="email" name="email">
+        <input type="text" name="email" value="<?= htmlspecialchars($email) ?>">
+        <?php if(isset($errors["email"])): ?>
+            <p class="error"><?= $errors["email"] ?></p>
+        <?php endif; ?>
 
         <label>Telepon</label>
-        <input type="text" name="telepon" required>
+        <input type="text" name="telepon" value="<?= htmlspecialchars($telepon) ?>">
+        <?php if(isset($errors["telepon"])): ?>
+            <p class="error"><?= $errors["telepon"] ?></p>
+        <?php endif; ?>
 
         <button type="submit">Simpan</button>
         <a href="dashboard.php" class="btn red">Batal</a>
     </form>
 </div>
+
 </body>
 </html>
