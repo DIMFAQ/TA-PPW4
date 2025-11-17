@@ -143,29 +143,5 @@ foreach ($kontak_list as $i => $k) {
     <div class="hidden md:block md:flex-1"></div>
 
 </div>
-
-
-<script>
-    document.getElementById('search-bar').addEventListener('keyup', function() {
-        let searchTerm = this.value.toLowerCase();
-        let contactCards = document.querySelectorAll('.contact-card');
-        let visibleCount = 0;
-        contactCards.forEach(function(card) {
-            let name = card.getAttribute('data-name'); let phone = card.getAttribute('data-telepon');
-            if (name.includes(searchTerm) || phone.includes(searchTerm)) {
-                card.style.display = 'flex'; visibleCount++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        let noResultsMessage = document.getElementById('no-results');
-        if (visibleCount === 0 && contactCards.length > 0) {
-            noResultsMessage.classList.remove('hidden');
-        } else {
-            noResultsMessage.classList.add('hidden');
-        }
-    });
-</script>
-
 </body>
 </html>
