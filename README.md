@@ -12,7 +12,7 @@ Fitur unik dari aplikasi ini adalah **tidak menggunakan database** eksternal. Se
 * **Edit Kontak:** Mengubah detail kontak yang sudah ada.
 * **Hapus Kontak:** Menghapus kontak dari daftar.
 * **Kontak Favorit:** Kemampuan untuk menandai atau menghapus tanda favorit pada kontak.
-* **Pencarian:** Fitur pencarian *real-time* di dashboard untuk menyaring kontak berdasarkan nama atau nomor telepon.
+* **Pencarian:** Fitur pencarian *real-time* di dashboard untuk menyaring kontak berdasarkan nama atau nomor telepon (BELUM BISA DIGUNAKAN KARNA BELUM MENGGUNAKAN JS)
 * **Logout:** Mengakhiri sesi pengguna dan menghapus semua data kontak.
 * **Desain Responsif:** Dibuat menggunakan Tailwind CSS.
 
